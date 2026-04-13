@@ -9,7 +9,7 @@ def parse_log(line):
     timestamp_str, level = match.groups()
     timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
     return timestamp, level
-return None, None
+  return None, None
 
 
 def analyze_logs(file_path):
