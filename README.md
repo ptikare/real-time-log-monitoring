@@ -3,7 +3,7 @@ This project is a real-time log monitoring system built using Python, designed t
 It continuously reads application logs, detects anomalies such as error spikes and high traffic, and triggers alerts using threshold-based logic.
 
 
-#Features
+# Features
 - Real-time log monitoring (tail -f behavior)
 - Log parsing with timestamp and severity levels
 - Error spike detection using sliding window algorithm
@@ -11,13 +11,18 @@ It continuously reads application logs, detects anomalies such as error spikes a
 - Lightweight and extensible design
 
 
-#Tech Stack
+# Tech Stack
 - Python
 - Regex for parsing
 - Deque (sliding window logic)
 
 
-#How it works
+# Log Generator
+To simulate real-time logs:
+python log_generator.py
+
+
+# How it works
 1. The system continuously reads incoming logs.
 2. Extracts timestamp and log level.
 3. Maintains a rolling time window (e.g., last 10 seconds).
