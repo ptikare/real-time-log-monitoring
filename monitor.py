@@ -1,28 +1,21 @@
-import re
-from datetime import datetime
+import time
 
-def parse_log(line):
-  pattern = r"^(.*?)\s+(INFO|ERROR|WARN)"
-  match = re.match(pattern, line)
+def monitor(file_path):
+    print("Starting real-time monitoring...")
 
-  if match:
-    timestamp_str, level = match.groups()
-    timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
-    return timestamp, level
-  return None, None
+    with open(file_path, "r") as file:
+        file.seek(0, 2)
 
+        while True:
+            line = file.readline()
 
-def analyze_logs(file_path):
-  error_count = 0
+            if not line:
+                time.sleep(0.5)
+                continue
 
-  with open(file_path, "r") as file:
-    for line in file:
-      _, level = parse_log(line)
-      if level == "ERROR":
-        error_count += 1
-
-  print(f"Total ERROR logs: {error_count}")
+            if "ERROR" in line:
+                print(f"ERROR detected: {line.strip()}")
 
 
 if __name__ == "__main__":
-  analyze_logs("app.log")
+    monitor("app.log")
