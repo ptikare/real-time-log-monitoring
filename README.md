@@ -31,8 +31,16 @@ python log_generator.py
    - Request rate spikes
 
 
-# How to Run
+# Architecture
+Log Generator → app.log → Monitor Script → Alert Detection
+
+
+# Demo
+Run monitoring:
 python monitor.py
+
+Run log generator (in another terminal):
+python log_generator.py
 
 
 # Sample log Format
