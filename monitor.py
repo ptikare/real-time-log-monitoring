@@ -1,6 +1,7 @@
 import time
 
 ERROR_THRESHOLD = 5
+alert_triggered = False
 error_count = 0
 
 def monitor(file_path):
@@ -21,9 +22,12 @@ def monitor(file_path):
             if "ERROR" in line:
                 error_count += 1
 
-            if error_count >= ERROR_THRESHOLD:
+            if error_count >= ERROR_THRESHOLD and not alert_triggered:
                 print(f"🚨 ALERT: High error count ({error_count})")
-                error_count = 0
+                alert_triggered = True
+
+            if error_count < ERROR_THRESHOLD:
+                alert_triggered = False
 
 
 if __name__ == "__main__":
