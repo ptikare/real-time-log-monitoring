@@ -32,10 +32,11 @@ python log_generator.py
 
 
 # Architecture
-Log Generator → app.log → Monitor Script → Alert Detection
+Log Generator → app.log → Monitor → Alert System
 
 
-# Demo
+## Demo
+
 Run monitoring:
 python monitor.py
 
