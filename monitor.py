@@ -1,13 +1,21 @@
 import time
+from prometheus_client import start_http_server, Counter
 
 ERROR_THRESHOLD = 5
 alert_triggered = False
 error_count = 0
 
+# Prometheus metrics
+error_counter = Counter('error_count', 'Total number of error logs')
+log_counter = Counter('log_count', 'Total number of logs processed')
+
 def monitor(file_path):
-    global error_count
+    global error_count, alert_triggered
     
     print("Monitoring with alert thresholds...")
+
+    # Start Prometheus metrics server
+    start_http_server(8000)
 
     with open(file_path, "r") as file:
         file.seek(0, 2)
@@ -19,8 +27,11 @@ def monitor(file_path):
                 time.sleep(0.5)
                 continue
 
+            log_counter.inc()
+
             if "ERROR" in line:
                 error_count += 1
+                error_counter.inc()
 
             if error_count >= ERROR_THRESHOLD and not alert_triggered:
                 print(f"🚨 ALERT: High error count ({error_count})")
