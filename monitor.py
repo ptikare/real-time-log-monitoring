@@ -15,7 +15,7 @@ def monitor(file_path):
     print("Monitoring with alert thresholds...")
 
     # Start Prometheus metrics server
-    start_http_server(8000)
+    start_http_server(8000, addr="0.0.0.0")
 
     with open(file_path, "r") as file:
         file.seek(0, 2)
