@@ -16,6 +16,7 @@ def monitor(file_path):
     error_count_local = 0
     total_count_local = 0
     start_time = time.time()
+    error_counter.inc(0)
 
     with open(file_path, "r") as file:
         file.seek(0, 2)
@@ -27,13 +28,12 @@ def monitor(file_path):
                 time.sleep(0.5)
                 continue
 
-            log_lines_total.inc()
-            total_count_local += 1
+            line = line.strip().upper()
+            print(f"Processing line: {line}")
 
             if "ERROR" in line:
                 error_counter.inc()
-                log_levels.labels(level="error").inc()
-                error_count_local += 1
+                print("Error detected!")
 
             elif "INFO" in line:
                 log_levels.labels(level="info").inc()
